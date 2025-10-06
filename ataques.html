@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ciberseguridad 01</title>
+
+    <style>
+        /* 🎨 Paleta de colores */
+        :root {
+            --oxford-blue: rgb(28, 9, 20);
+            --zomp: rgb(55, 54, 82);
+            --cambridge-blue: rgb(100, 110, 222);
+            --baby-powder: rgb(245, 245, 245);
+            --cyclamen: rgb(215, 108, 147);
+        }
+
+        /* 🖼️ Estilos generales */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: var(--baby-powder);
+            color: var(--oxford-blue);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* 🔝 Encabezado */
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--cyclamen);
+            font-size: 2.5em;
+            margin-bottom: 0.3em;
+        }
+
+        h2 {
+            color: var(--zomp);
+            font-size: 1.5em;
+            margin-top: 0;
+        }
+
+        /* 🧭 Barra de navegación */
+        nav {
+            background-color: var(--cyclamen);
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0px 4px 6px rgba(0,0,0,0.3);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--baby-powder);
+            text-decoration: underline;
+        }
+
+        /* 🧮 Tabla */
+        .tabla-ciber {
+            width: 90%;
+            max-width: 1000px;
+            margin-top: 20px;
+            border-collapse: collapse;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .tabla-ciber thead {
+            background-color: var(--oxford-blue);
+            color: var(--baby-powder);
+        }
+
+        .tabla-ciber th,
+        .tabla-ciber td {
+            padding: 14px 18px;
+            text-align: center;
+            border: 1px solid var(--cambridge-blue);
+            font-size: 16px;
+        }
+
+        .tabla-ciber th {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tabla-ciber tr:nth-child(even) {
+            background-color: var(--baby-powder);
+        }
+
+        .tabla-ciber tr:nth-child(odd) {
+            background-color: var(--cambridge-blue);
+            color: white;
+        }
+
+        .tabla-ciber tr:hover {
+            background-color: var(--zomp);
+            color: var(--baby-powder);
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="#">Tipos de Malware</a>
+        <a href="#">Prevención</a>
+    </nav>
+
+    <header>
+        <h1>Ciberseguridad 01</h1>
+        <h2>Tipos de Malware</h2>
+    </header>
+
+    <table class="tabla-ciber">
+        <thead>
+            <tr>
+                <th>Tipo de Malware</th>
+                <th>Función</th>
+                <th>Impacto</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Virus</td>
+                <td>Se autorreplica e infecta archivos.</td>
+                <td>Daño de datos y del sistema.</td>
+            </tr>
+            <tr>
+                <td>Gusanos</td>
+                <td>Se propaga a través de redes.</td>
+                <td>Interrupción de red, agotamiento de recursos.</td>
+            </tr>
+            <tr>
+                <td>Caballo de Troya</td>
+                <td>Se disfraza de software legítimo.</td>
+                <td>Robo de datos, control del sistema.</td>
+            </tr>
+            <tr>
+                <td>Software espía</td>
+                <td>Supervisa en secreto la actividad del usuario.</td>
+                <td>Violación de privacidad, robo de datos.</td>
+            </tr>
+            <tr>
+                <td>Software publicitario</td>
+                <td>Muestra anuncios no deseados.</td>
+                <td>Molestia, degradación del rendimiento.</td>
+            </tr>
+            <tr>
+                <td>Rootkit</td>
+                <td>Oculta software malicioso.</td>
+                <td>Acceso no autorizado, amenaza persistente.</td>
+            </tr>
+            <tr>
+                <td>Keylogger</td>
+                <td>Registra pulsaciones del teclado.</td>
+                <td>Robo de credenciales y datos.</td>
+            </tr>
+            <tr>
+                <td>Fileless Malware</td>
+                <td>Opera directamente en la memoria.</td>
+                <td>Ataques sigilosos y difíciles de detectar.</td>
+            </tr>
+            <tr>
+                <td>Cryptojacker</td>
+                <td>Usa recursos del sistema para minar criptomonedas.</td>
+                <td>Rendimiento bajo, secuestro de recursos.</td>
+            </tr>
+            <tr>
+                <td>Red de bots (Botnet)</td>
+                <td>Crea una red de dispositivos infectados.</td>
+                <td>Ataques DDoS, distribución de spam.</td>
+            </tr>
+            <tr>
+                <td>Bomba lógica</td>
+                <td>Ejecuta código cuando se cumple una condición.</td>
+                <td>Destrucción de datos, daños al sistema.</td>
+            </tr>
+            <tr>
+                <td>Wiper</td>
+                <td>Destruye datos de forma permanente.</td>
+                <td>Pérdida irreversible de información.</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
