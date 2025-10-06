@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Calculadora</title>
+
+  <!-- Bootstrap 5 (sin jQuery) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+
+  <style>
+    :root{
+      --bg: #0e0f12;
+      --card: #141518;
+      --accent: #6f42c1;
+      --accent-2: #ff5c5c;
+      --text: #f4f4f7;
+      --muted: #9aa0a6;
+    }
+
+    html,body { height:100%; margin:0; background:linear-gradient(180deg,#0b0c0e 0%, #111217 100%); color:var(--text); font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+
+    /* Navbar */
+    .navbar-custom { background: linear-gradient(90deg, var(--accent), #4a148c); }
+    .navbar-custom .nav-link, .navbar-custom .navbar-brand { color: #fff; font-weight:600; }
+    .navbar-custom .nav-link:hover { color: var(--accent-2) !important; }
+
+    /* Centrado del contenido principal */
+    .main-wrap {
+      min-height: calc(100vh - 72px); /* deja espacio para navbar */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 12px;
+    }
+
+    /* Tarjeta calculadora */
+    .calc-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));
+      border: 1px solid rgba(255,255,255,0.04);
+      width: 360px;
+      max-width: 92vw;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+
+    .display {
+      background: #0f1113;
+      border: 1px solid rgba(255,255,255,0.03);
+      color: var(--text);
+      height: 64px;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 1.5rem;
+      text-align: right;
+      box-shadow: inset 0 -4px 12px rgba(0,0,0,0.6);
+      margin-bottom: 16px;
+      overflow-x:auto;
+      white-space:nowrap;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .calc-btn {
+      height:58px;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight:600;
+      border: none;
+      transition: transform .08s ease, box-shadow .08s ease;
+      box-shadow: 0 6px 0 rgba(0,0,0,0.45);
+    }
+
+    .calc-btn:active { transform: translateY(2px); box-shadow: 0 3px 0 rgba(0,0,0,0.45); }
+
+    .btn-op { background: linear-gradient(180deg,var(--accent), #5a18a8); color: #fff; }
+    .btn-num { background: linear-gradient(180deg,#1f2124, #070709); color:var(--text); }
+    .btn-eq  { background: linear-gradient(180deg,var(--accent-2), #e04343); color: #fff; grid-column: span 1; }
+    .btn-wide { grid-column: span 2; }
+
+    .small-muted { color: var(--muted); font-size: .88rem; margin-bottom: 10px; text-align:center; }
+    @media (max-width:420px){
+      .display { height:56px; font-size:1.25rem; }
+      .calc-btn { height:50px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Inicio</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon" style="filter:invert(1)"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">UNIDAD 1</a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="./mel1.html">Conceptos</a></li>
+              <li><a class="dropdown-item" href="./mel2.html">Ataques</a></li>
+              <li><a class="dropdown-item" href="./mel3.html">Protección</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown ms-2">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">UNIDAD 2</a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="./index4.html">Conceptos</a></li>
+              <li><a class="dropdown-item" href="./index5.php">Ataques</a></li>
+              <li><a class="dropdown-item" href="./index6.php">Protección</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown ms-2">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">UNIDAD 3</a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="./index7.php">Conceptos</a></li>
+              <li><a class="dropdown-item" href="./index8.php">Ataques</a></li>
+              <li><a class="dropdown-item" href="./index9.php">Protección</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENIDO PRINCIPAL (centrado) -->
+  <main class="main-wrap">
+    <div class="calc-card">
+
+      <!-- pantalla -->
+      <div id="display" class="display" aria-live="polite" role="textbox" tabindex="0">0</div>
+
+      <!-- teclas -->
+      <div class="keypad">
+        <button class="calc-btn btn-op" data-action="clear">C</button>
+        <button class="calc-btn btn-op" data-action="back">←</button>
+        <button class="calc-btn btn-op" data-action="percent">%</button>
+        <button class="calc-btn btn-op" data-value="/" title="Dividir">÷</button>
+
+        <button class="calc-btn btn-num" data-value="7">7</button>
+        <button class="calc-btn btn-num" data-value="8">8</button>
+        <button class="calc-btn btn-num" data-value="9">9</button>
+        <button class="calc-btn btn-op" data-value="*" title="Multiplicar">×</button>
+
+        <button class="calc-btn btn-num" data-value="4">4</button>
+        <button class="calc-btn btn-num" data-value="5">5</button>
+        <button class="calc-btn btn-num" data-value="6">6</button>
+        <button class="calc-btn btn-op" data-value="-">−</button>
+
+        <button class="calc-btn btn-num" data-value="1">1</button>
+        <button class="calc-btn btn-num" data-value="2">2</button>
+        <button class="calc-btn btn-num" data-value="3">3</button>
+        <button class="calc-btn btn-op" data-value="+">+</button>
+
+        <button class="calc-btn btn-num btn-wide" data-value="0">0</button>
+        <button class="calc-btn btn-num" data-value="00">00</button>
+        <button class="calc-btn btn-num" data-value=".">.</button>
+
+        <button class="calc-btn btn-eq" data-action="equals">=</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      const displayEl = document.getElementById('display');
+
+      // keep a string expression separately (makes manipulation easier)
+      let expr = '';
+
+      // helper to show in display (defaults to '0' when empty)
+      function render() {
+        displayEl.textContent = expr === '' ? '0' : expr;
+      }
+
+      // append value (numbers and operators)
+      function append(val) {
+        // prevent starting with operator (except minus)
+        if (expr === '' && /[+\/*×÷]/.test(val)) return;
+        expr += val;
+        render();
+      }
+
+      function clearAll() { expr = ''; render(); }
+
+      function backspace() {
+        if (expr.length > 0) expr = expr.slice(0, -1);
+        render();
+      }
+
+      // percent: convert last "number" to (number/100)
+      function applyPercent() {
+        // replace last number (with optional decimal) with (num/100)
+        expr = expr.replace(/(\d+(\.\d+)?)$/ , (m, p1) => `(${p1}/100)`);
+        render();
+      }
+
+      // evaluate expression with basic safety
+      function evaluateExpression() {
+        if (!expr) return;
+        // normalize visual operators to JS
+        let safeExpr = expr.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-');
+
+        // replace any remaining percent forms like 50% -> (50/100)
+        safeExpr = safeExpr.replace(/(\d+(\.\d+)?)%/g, '($1/100)');
+
+        // safety check: allow only digits, operators, parentheses and dots and spaces
+        if (!/^[0-9+\-*/().\s]+$/.test(safeExpr)) {
+          expr = 'Error';
+          render();
+          return;
+        }
+
+        try {
+          // eslint-disable-next-line no-new-func
+          const result = Function('"use strict"; return (' + safeExpr + ')')();
+          // show as integer if integer, otherwise show up to 10 decimals trimmed
+          if (typeof result === 'number' && isFinite(result)) {
+            expr = Number.isInteger(result) ? String(result) : String(Number(result.toFixed(10)));
+          } else {
+            expr = 'Error';
+          }
+        } catch (e) {
+          expr = 'Error';
+        }
+        render();
+      }
+
+      // wire buttons
+      document.querySelectorAll('.calc-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const v = btn.getAttribute('data-value');
+          const a = btn.getAttribute('data-action');
+
+          if (a === 'clear') return clearAll();
+          if (a === 'back') return backspace();
+          if (a === 'percent') return applyPercent();
+          if (a === 'equals') return evaluateExpression();
+
+          if (v) {
+            // convert visual × ÷ − to js operators stored expression as JS-friendly characters
+            if (v === '×' || v === '÷' || v === '−') {
+              append(v);
+            } else {
+              append(v);
+            }
+          }
+        });
+      });
+
+      // keyboard support
+      document.addEventListener('keydown', (ev) => {
+        const k = ev.key;
+        if ((/^[0-9]$/.test(k))) { append(k); ev.preventDefault(); return; }
+        if (k === 'Enter') { evaluateExpression(); ev.preventDefault(); return; }
+        if (k === 'Backspace') { backspace(); ev.preventDefault(); return; }
+        if (k === 'Delete') { clearAll(); ev.preventDefault(); return; }
+        if (k === '.') { append('.'); ev.preventDefault(); return; }
+        if (k === '%') { applyPercent(); ev.preventDefault(); return; }
+        if (k === '+' || k === '-' || k === '*' || k === '/') { append(k); ev.preventDefault(); return; }
+        // support numpad × (×) and ÷ (÷) characters if pasted/typed
+        if (k === '×' || k === '÷') { append(k); ev.preventDefault(); return; }
+        // allow parentheses
+        if (k === '(' || k === ')') { append(k); ev.preventDefault(); return; }
+      });
+
+      // initial render
+      render();
+    })();
+  </script>
+</body>
+</html>
